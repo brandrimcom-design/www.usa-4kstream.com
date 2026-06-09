@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>USA Service | Premium Global IPTV 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@400;500;600;700;800;900&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --usa-red: #b22234;
+            --usa-blue: #002868;
+            --usa-white: #ffffff;
+            --gold: #ffc107;
+            --dark-bg: #0a1a3a;
+            --card-bg: rgba(13, 34, 71, 0.7);
+            --gradient-usa: linear-gradient(135deg, #b22234 0%, #002868 50%, #b22234 100%);
+            --gradient-gold: linear-gradient(135deg, #ffc107 0%, #ff8f00 100%);
+            --glow-red: 0 0 30px rgba(178, 34, 52, 0.4);
+            --glow-gold: 0 0 30px rgba(255, 193, 7, 0.4);
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; scroll-padding-top: 90px; }
+        
+        body {
+            font-family: 'Poppins', 'Inter', sans-serif;
+            background: linear-gradient(135deg, #050f22 0%, #0a1a3a 50%, #050f22 100%);
+            color: var(--usa-white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* --- Animations --- */
+        @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-10px); } }
+        @keyframes pulse { 0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); } 50% { transform: scale(1.1); box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); } }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        @keyframes gradientShift { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+        @keyframes flagWave { 0%, 100% { transform: rotate(-4deg); } 50% { transform: rotate(4deg); } }
+        @keyframes floatStars { 0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.3; } 50% { transform: translateY(-15px) rotate(180deg); opacity: 0.8; } }
+
+        /* --- Loading --- */
+        .loading { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #050f22; display: flex; align-items: center; justify-content: center; z-index: 10000; transition: opacity 0.5s; }
+        .loading.hidden { opacity: 0; pointer-events: none; }
+        .loading-spinner { width: 70px; height: 70px; border: 4px solid rgba(178,34,52,0.2); border-top-color: var(--usa-red); border-right-color: var(--usa-blue); border-radius: 50%; animation: rotate 1s linear infinite; }
+
+        /* --- Floating WhatsApp --- */
+        .floating-wa { position: fixed; bottom: 30px; right: 30px; z-index: 1000; animation: pulse 2s infinite; cursor: pointer; }        .floating-wa a { display: flex; align-items: center; justify-content: center; width: 65px; height: 65px; background: linear-gradient(135deg, #25D366, #128C7E); border-radius: 50%; color: white; font-size: 2.2rem; text-decoration: none; box-shadow: 0 10px 30px rgba(0,0,0,0.4); transition: var(--transition); }
+        .floating-wa a:hover { transform: scale(1.1); }
+
+        /* --- Navbar --- */
+        .navbar { position: fixed; top: 0; width: 100%; background: rgba(5, 15, 34, 0.95); backdrop-filter: blur(15px); border-bottom: 2px solid var(--usa-red); z-index: 1000; padding: 1rem 0; transition: var(--transition); }
+        .navbar.scrolled { padding: 0.7rem 0; background: rgba(5, 15, 34, 0.98); box-shadow: 0 5px 20px rgba(0,0,0,0.5); }
+        .nav-container { max-width: 1300px; margin: 0 auto; padding: 0 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .nav-links { display: flex; gap: 2.5rem; list-style: none; align-items: center; }
+        .nav-links a { color: #fff; text-decoration: none; font-weight: 600; transition: var(--transition); text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px; }
+        .nav-links a:hover { color: var(--gold); text-shadow: 0 0 10px rgba(255,193,7,0.5); }
+        .mobile-menu-btn { display: none; background: none; border: none; color: white; font-size: 1.8rem; cursor: pointer; }
+        .mobile-menu { display: none; position: absolute; top: 100%; left: 0; right: 0; background: rgba(5, 15, 34, 0.98); padding: 1.5rem; border-top: 2px solid var(--usa-red); }
+        .mobile-menu.active { display: block; animation: fadeInUp 0.3s ease; }
+        .mobile-menu a { display: block; padding: 1rem; color: white; text-decoration: none; font-weight: 600; border-bottom: 1px solid rgba(255,255,255,0.1); }
+
+        .logo { display: inline-flex; align-items: center; gap: 1rem; text-decoration: none; }
+        .logo-icon {
+            width: 55px; height: 55px; background: linear-gradient(135deg, #b22234 0%, #ffffff 30%, #002868 70%, #b22234 100%);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2.2rem;
+            box-shadow: var(--glow-red); animation: flagWave 3s ease-in-out infinite; border: 2px solid var(--gold);
+        }
+        .logo-text {
+            font-family: 'Montserrat', sans-serif; font-size: 1.8rem; font-weight: 900;
+            background: linear-gradient(135deg, #fff 0%, #b22234 40%, #ffc107 100%);
+            -webkit-background-clip: text; background-clip: text; color: transparent;
+            background-size: 200% 200%; animation: gradientShift 4s ease infinite;
+        }
+
+        /* --- Hero Section (تحسين ظهور الصورة) --- */
+        .hero {
+            margin-top: 85px; padding: 7rem 2rem; text-align: center;
+            /* تدرج داكن شفاف يبرز صورة تمثال الحرية خلفه بوضوح وأناقة */
+            background: linear-gradient(135deg, rgba(5,15,34,0.85) 0%, rgba(0,40,104,0.75) 50%, rgba(5,15,34,0.85) 100%), 
+                        url('https://images.unsplash.com/photo-1605130284535-11dd9eedc58a?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop');
+            background-size: cover; background-position: center; background-attachment: fixed;
+            position: relative; overflow: hidden;
+        }
+        .hero::after {
+            content: '★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★';
+            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            font-size: 1.5rem; color: rgba(255,255,255,0.06);
+            letter-spacing: 2rem; line-height: 6rem; word-spacing: 2rem;
+            pointer-events: none; animation: floatStars 20s ease-in-out infinite;
+        }
+        .hero-badge {
+            display: inline-flex; align-items: center; gap: 0.8rem;
+            background: rgba(178,34,52,0.3); border: 2px solid rgba(178,34,52,0.8);
+            padding: 0.8rem 2rem; border-radius: 50px; color: var(--gold);
+            margin-bottom: 2rem; font-weight: 800; animation: fadeInUp 0.8s ease;
+            backdrop-filter: blur(5px);        }
+        .hero h1 {
+            font-family: 'Montserrat', sans-serif; font-size: clamp(2.8rem, 7vw, 5rem);
+            font-weight: 900; background: linear-gradient(135deg, #ffffff 0%, #b22234 40%, #ffc107 70%, #002868 100%);
+            -webkit-background-clip: text; background-clip: text; color: transparent;
+            margin-bottom: 1.5rem; background-size: 300% 300%;
+            animation: gradientShift 5s ease infinite, fadeInUp 1s ease 0.2s backwards;
+            text-transform: uppercase; letter-spacing: 2px; line-height: 1.1;
+        }
+        .hero p { 
+            font-size: clamp(1.1rem, 2vw, 1.3rem); color: #cbd5e1; max-width: 800px; 
+            margin: 0 auto 2.5rem; font-weight: 500; animation: fadeInUp 1s ease 0.4s backwards;
+        }
+        .btn-group { display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; animation: fadeInUp 1s ease 0.6s backwards; }
+        .btn {
+            display: inline-flex; align-items: center; gap: 0.8rem;
+            background: var(--gradient-usa); padding: 1.1rem 2.5rem; border-radius: 50px;
+            font-weight: 800; color: white; text-decoration: none; transition: var(--transition);
+            border: 2px solid transparent; box-shadow: var(--glow-red);
+        }
+        .btn:hover { transform: translateY(-4px); box-shadow: 0 15px 35px rgba(178, 34, 52, 0.5); }
+        .btn-outline { background: transparent; border: 2px solid var(--usa-red); box-shadow: none; }
+        .btn-outline:hover { background: var(--gradient-usa); border-color: transparent; }
+        .btn-wa { background: linear-gradient(135deg, #25D366, #128C7E); box-shadow: 0 10px 25px rgba(37, 211, 102, 0.3); }
+
+        /* --- Sections General --- */
+        section { padding: 5rem 2rem; }
+        .section-header { text-align: center; margin-bottom: 3.5rem; }
+        .section-header h2 {
+            font-family: 'Montserrat', sans-serif; font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 900; background: linear-gradient(135deg, #ffffff 0%, #ffc107 50%, #b22234 100%);
+            -webkit-background-clip: text; background-clip: text; color: transparent;
+            text-transform: uppercase; background-size: 200% 200%; animation: gradientShift 3s ease infinite;
+        }
+
+        /* --- Stats --- */
+        .stats { background: rgba(13, 34, 71, 0.5); }
+        .stats-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; }
+        .stat-item {
+            text-align: center; padding: 2.5rem 1.5rem; background: var(--card-bg);
+            border-radius: 1.5rem; border: 1px solid rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px); transition: var(--transition);
+        }
+        .stat-item:hover { transform: translateY(-8px); border-color: var(--gold); box-shadow: var(--glow-gold); }
+        .stat-number {
+            font-size: clamp(2.5rem, 4vw, 3.5rem); font-weight: 900;
+            background: linear-gradient(135deg, #ffc107, #fff);
+            -webkit-background-clip: text; background-clip: text; color: transparent;
+        }
+        .stat-label { color: #94a3b8; font-weight: 600; margin-top: 0.5rem; text-transform: uppercase; letter-spacing: 1px; }
+        /* --- Plans --- */
+        .plans { background: linear-gradient(180deg, rgba(13,34,71,0.8) 0%, rgba(10,26,58,0.9) 100%); }
+        .plans-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2.5rem; }
+        .plan-card {
+            background: var(--card-bg); border-radius: 2rem; padding: 3rem 2rem;
+            border: 1px solid rgba(255,255,255,0.1); transition: var(--transition);
+            text-align: center; position: relative; backdrop-filter: blur(10px);
+        }
+        .plan-card:hover { transform: translateY(-10px); border-color: var(--gold); box-shadow: var(--glow-gold); }
+        .plan-card.featured { border: 2px solid var(--gold); transform: scale(1.03); }
+        .plan-card.featured:hover { transform: scale(1.03) translateY(-10px); }
+        .plan-card::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+            background: var(--gradient-usa); border-radius: 2rem 2rem 0 0;
+        }
+        .plan-badge {
+            position: absolute; top: -15px; left: 50%; transform: translateX(-50%);
+            background: var(--gradient-gold); color: #000; padding: 0.5rem 1.5rem;
+            border-radius: 3rem; font-size: 0.85rem; font-weight: 900; white-space: nowrap;
+            box-shadow: 0 5px 15px rgba(255,193,7,0.4);
+        }
+        .plan-icon { font-size: 3.5rem; margin-bottom: 1.5rem; }
+        .plan-name { font-size: 1.8rem; font-weight: 900; margin-bottom: 1rem; text-transform: uppercase; }
+        .plan-price .amount { font-size: 3.5rem; font-weight: 900; color: var(--gold); }
+        .plan-features { list-style: none; margin: 2rem 0; text-align: left; }
+        .plan-features li { display: flex; align-items: center; gap: 0.8rem; padding: 0.7rem 0; color: #cbd5e1; }
+        .plan-features li i { color: var(--gold); }
+        .btn-buy {
+            width: 100%; padding: 1rem; border-radius: 3rem; font-weight: 800;
+            background: var(--gradient-usa); color: white; border: none; cursor: pointer; transition: var(--transition);
+        }
+        .btn-buy:hover { transform: scale(1.03); box-shadow: var(--glow-red); }
+
+        /* --- Matches & Sports --- */
+        .matches-section, .sports-highlights { background: rgba(5, 15, 34, 0.8); }
+        .matches-grid, .sports-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2.5rem; }
+        .match-card, .sport-card {
+            background: var(--card-bg); border-radius: 1.5rem; overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1); transition: var(--transition);
+        }
+        .match-card:hover, .sport-card:hover { transform: translateY(-8px); border-color: var(--gold); box-shadow: var(--glow-gold); }
+        .match-img, .carousel-img { height: 240px; background-size: cover; background-position: center; position: relative; }
+        .match-img::after, .carousel-img::after {
+            content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 60%;
+            background: linear-gradient(to top, rgba(5,15,34,0.95), transparent);
+        }
+        .match-info, .carousel-info { padding: 1.5rem; text-align: center; position: relative; z-index: 2; margin-top: -30px; }
+        .match-title, .carousel-title { font-weight: 900; font-size: 1.3rem; margin-bottom: 0.5rem; text-transform: uppercase; }
+        .match-year, .carousel-year { color: var(--gold); font-size: 0.9rem; font-weight: 700; }        .live-badge {
+            position: absolute; top: 15px; right: 15px; background: #e50914;
+            color: white; padding: 0.4rem 1rem; border-radius: 20px; font-size: 0.8rem;
+            font-weight: 900; z-index: 3; display: flex; align-items: center; gap: 0.4rem;
+            animation: pulse 2s infinite; border: 2px solid white;
+        }
+        .live-badge::before { content: ''; width: 8px; height: 8px; background: white; border-radius: 50%; }
+
+        .sport-card { height: 260px; position: relative; }
+        .sport-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+        .sport-card:hover img { transform: scale(1.1); }
+        .sport-label {
+            position: absolute; bottom: 15px; left: 15px; color: white;
+            font-weight: 900; font-size: 1.3rem; z-index: 2; text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+        }
+
+        /* --- Carousel --- */
+        .carousel-section { background: rgba(13, 34, 71, 0.8); }
+        .carousel-container { max-width: 1200px; margin: 0 auto; position: relative; overflow: hidden; }
+        .carousel-track { display: flex; transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1); gap: 1.5rem; }
+        .carousel-slide { flex: 0 0 calc(33.333% - 1rem); background: var(--card-bg); border-radius: 1.5rem; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); transition: var(--transition); }
+        .carousel-slide:hover { transform: translateY(-8px); border-color: var(--gold); }
+        .carousel-btn {
+            position: absolute; top: 50%; transform: translateY(-50%); width: 45px; height: 45px;
+            background: rgba(178,34,52,0.8); border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            cursor: pointer; color: white; z-index: 10; border: 2px solid var(--gold); transition: var(--transition);
+        }
+        .carousel-btn:hover { background: var(--usa-red); transform: translateY(-50%) scale(1.1); }
+        .carousel-btn-left { left: 10px; }
+        .carousel-btn-right { right: 10px; }
+
+        /* --- FAQ --- */
+        .faq { background: rgba(5, 15, 34, 0.8); }
+        .faq-container { max-width: 800px; margin: 0 auto; }
+        .faq-item {
+            background: var(--card-bg); border-radius: 1rem; margin-bottom: 1rem;
+            border: 1px solid rgba(255,255,255,0.1); transition: var(--transition);
+        }
+        .faq-item:hover, .faq-item.active { border-color: var(--gold); }
+        .faq-question {
+            padding: 1.2rem; display: flex; justify-content: space-between; align-items: center;
+            cursor: pointer; font-weight: 700;
+        }
+        .faq-toggle {
+            width: 30px; height: 30px; border-radius: 50%; background: rgba(178,34,52,0.3);
+            display: flex; align-items: center; justify-content: center; color: var(--gold); transition: var(--transition);
+        }
+        .faq-item.active .faq-toggle { transform: rotate(45deg); background: var(--usa-red); }
+        .faq-answer { max-height: 0; overflow: hidden; transition: all 0.4s ease; color: #94a3b8; padding: 0 1.2rem; }
+        .faq-item.active .faq-answer { max-height: 200px; padding: 0 1.2rem 1.2rem; }
+        /* --- Contact (بجانب بعضهما تماماً) --- */
+        .contact-section { background: linear-gradient(180deg, rgba(13,34,71,0.8) 0%, rgba(5,15,34,0.9) 100%); }
+        .contact-icons { 
+            display: flex; 
+            justify-content: center; 
+            gap: 2rem; 
+            flex-wrap: wrap; 
+            margin-top: 2rem;
+            flex-direction: row; /* ضمان بقائهما بجانب بعضهما */
+        }
+        .contact-icon-btn {
+            display: flex; align-items: center; gap: 1rem;
+            background: var(--card-bg); padding: 1.2rem 2.5rem; border-radius: 3rem;
+            border: 2px solid rgba(255,255,255,0.1); cursor: pointer;
+            transition: var(--transition); font-weight: 700; font-size: 1.1rem;
+            backdrop-filter: blur(10px);
+        }
+        .contact-icon-btn:hover { transform: translateY(-5px); border-color: var(--gold); box-shadow: var(--glow-gold); }
+        .contact-icon-btn i { font-size: 1.8rem; }
+        .contact-icon-btn.wa i { color: #25D366; }
+        .contact-icon-btn.wa { border-color: rgba(37, 211, 102, 0.5); }
+        .contact-icon-btn.wa:hover { background: rgba(37, 211, 102, 0.1); }
+        .contact-icon-btn.email i { color: #ea4335; }
+        .contact-icon-btn.email { border-color: rgba(234, 67, 53, 0.5); }
+        .contact-icon-btn.email:hover { background: rgba(234, 67, 53, 0.1); }
+
+        /* --- Modal --- */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 10001; align-items: center; justify-content: center; padding: 1rem; }
+        .modal.active { display: flex; animation: fadeInUp 0.4s ease; }
+        .modal-content {
+            background: #0d2247; border-radius: 1.5rem; max-width: 500px; width: 100%;
+            padding: 2.5rem; border: 2px solid var(--gold); box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
+        .modal-header h3 { font-size: 1.5rem; display: flex; align-items: center; gap: 0.8rem; }
+        .close-modal { background: none; border: none; color: #aaa; font-size: 1.8rem; cursor: pointer; transition: var(--transition); }
+        .close-modal:hover { color: var(--gold); transform: rotate(90deg); }
+        .contact-form-modal { display: flex; flex-direction: column; gap: 1rem; }
+        .contact-form-modal input, .contact-form-modal select, .contact-form-modal textarea {
+            width: 100%; padding: 1rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 0.8rem; color: white; font-family: inherit; transition: var(--transition);
+        }
+        .contact-form-modal input:focus, .contact-form-modal select:focus, .contact-form-modal textarea:focus {
+            outline: none; border-color: var(--gold); background: rgba(255,255,255,0.1);
+        }
+        .btn-submit-form {
+            background: var(--gradient-usa); color: white; padding: 1rem; border-radius: 3rem;
+            font-weight: 800; border: none; cursor: pointer; transition: var(--transition);
+        }        .btn-submit-form:hover { transform: translateY(-2px); box-shadow: var(--glow-red); }
+
+        .toast-message {
+            position: fixed; bottom: 100px; right: 30px; background: linear-gradient(135deg, #25D366, #128C7E);
+            color: white; padding: 1rem 2rem; border-radius: 50px; display: flex; align-items: center; gap: 0.8rem;
+            z-index: 10001; animation: fadeInUp 0.5s ease; font-weight: 600; box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        /* --- Footer --- */
+        footer { background: #030914; padding: 4rem 2rem 2rem; border-top: 2px solid var(--usa-red); }
+        .footer-content { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 3rem; margin-bottom: 3rem; }
+        .footer-col h4 { color: var(--gold); margin-bottom: 1.5rem; font-size: 1.2rem; text-transform: uppercase; letter-spacing: 1px; }
+        .footer-col p, .footer-col a { color: #94a3b8; text-decoration: none; font-size: 0.95rem; display: block; padding: 0.4rem 0; transition: var(--transition); }
+        .footer-col a:hover { color: var(--gold); transform: translateX(5px); }
+        .footer-bottom { text-align: center; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.05); color: #64748b; font-size: 0.9rem; }
+
+        /* --- Responsive Design (مضمون 100%) --- */
+        @media (max-width: 1024px) {
+            .nav-links { display: none; }
+            .mobile-menu-btn { display: block; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .carousel-slide { flex: 0 0 calc(50% - 0.75rem); }
+        }
+
+        @media (max-width: 768px) {
+            .hero { margin-top: 75px; padding: 5rem 1.5rem; background-attachment: scroll; }
+            .hero h1 { font-size: clamp(2rem, 6vw, 3.5rem); }
+            .btn-group { flex-direction: column; align-items: center; width: 100%; }
+            .btn { width: 100%; max-width: 320px; justify-content: center; }
+            
+            .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+            .stat-item { padding: 1.5rem 1rem; }
+            
+            .plans-grid, .matches-grid, .sports-grid { grid-template-columns: 1fr; max-width: 450px; margin: 0 auto; }
+            .plan-card.featured { transform: none; }
+            .plan-card.featured:hover { transform: translateY(-10px); }
+            
+            .carousel-slide { flex: 0 0 100%; }
+            
+            /* ضمان بقاء أيقونات الاتصال بجانب بعضها حتى في الجوال */
+            .contact-icons { 
+                flex-direction: row; 
+                gap: 1rem;
+                flex-wrap: wrap;
+            }
+            .contact-icon-btn {
+                padding: 1rem 1.5rem;
+                font-size: 1rem;
+                flex: 1;
+                min-width: 140px;                justify-content: center;
+            }
+            
+            .footer-content { grid-template-columns: 1fr; text-align: center; }
+            .footer-col a:hover { transform: none; }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 { font-size: 1.8rem; letter-spacing: 1px; }
+            .hero p { font-size: 1rem; }
+            .hero-badge { font-size: 0.85rem; padding: 0.6rem 1.5rem; }
+            .logo-text { font-size: 1.4rem; }
+            .logo-icon { width: 45px; height: 45px; font-size: 1.8rem; }
+            .floating-wa { bottom: 20px; right: 20px; }
+            .floating-wa a { width: 55px; height: 55px; font-size: 1.8rem; }
+            .section-header h2 { font-size: 1.6rem; }
+            .plan-price .amount { font-size: 2.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="loading" id="loading"><div class="loading-spinner"></div></div>
+
+    <div class="floating-wa">
+        <a href="https://wa.me/212617645035" target="_blank"><i class="fab fa-whatsapp"></i></a>
+    </div>
+
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <div class="logo-icon">🇺🇸</div>
+                <div class="logo-text">USA SERVICE</div>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#home">HOME</a></li>
+                <li><a href="#plans">PLANS</a></li>
+                <li><a href="#matches">SPORTS</a></li>
+                <li><a href="#movies-carousel">MOVIES</a></li>
+                <li><a href="#faq">FAQ</a></li>
+                <li><a href="#contact">CONTACT</a></li>
+            </ul>
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()"><i class="fas fa-bars"></i></button>
+        </div>
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="#home" onclick="closeMobileMenu()">HOME</a>
+            <a href="#plans" onclick="closeMobileMenu()">PLANS</a>
+            <a href="#matches" onclick="closeMobileMenu()">SPORTS</a>
+            <a href="#movies-carousel" onclick="closeMobileMenu()">MOVIES</a>
+            <a href="#faq" onclick="closeMobileMenu()">FAQ</a>            <a href="#contact" onclick="closeMobileMenu()">CONTACT</a>
+        </div>
+    </nav>
+
+    <section class="hero" id="home">
+        <div class="hero-badge"><i class="fas fa-globe-americas"></i> PREMIUM GLOBAL IPTV <i class="fas fa-star"></i></div>
+        <h1>Ultimate 4K IPTV<br>Streaming Experience</h1>
+        <p>The best IPTV service worldwide. Watch NFL, Premier League, La Liga, and all your favorite content in stunning 4K quality.</p>
+        <div class="btn-group">
+            <a href="https://wa.me/212617645035" class="btn btn-wa" target="_blank"><i class="fab fa-whatsapp"></i> FREE TRIAL</a>
+            <a href="#plans" class="btn btn-outline"><i class="fas fa-arrow-down"></i> VIEW PLANS</a>
+        </div>
+    </section>
+
+    <section class="stats animate-on-scroll">
+        <div class="stats-grid">
+            <div class="stat-item"><span class="stat-number" data-target="50000" data-prefix="+">+0</span><div class="stat-label">GLOBAL CUSTOMERS</div></div>
+            <div class="stat-item"><span class="stat-number" data-target="45000" data-prefix="+">+0</span><div class="stat-label">LIVE CHANNELS</div></div>
+            <div class="stat-item"><span class="stat-number" data-target="8000" data-prefix="+">+0</span><div class="stat-label">SPORTS CHANNELS</div></div>
+            <div class="stat-item"><span class="stat-number" data-target="100000" data-prefix="+">+0</span><div class="stat-label">MOVIES & SERIES</div></div>
+        </div>
+    </section>
+
+    <section class="plans animate-on-scroll" id="plans">
+        <div class="section-header"><h2>CHOOSE YOUR PLAN</h2></div>
+        <div class="plans-grid">
+            <div class="plan-card">
+                <div class="plan-icon">📱</div>
+                <h3 class="plan-name">MONTHLY</h3>
+                <div class="plan-price"><span class="amount">$13</span> <span style="color:#94a3b8">/month</span></div>
+                <ul class="plan-features">
+                    <li><i class="fas fa-check-circle"></i> 30 Days Access</li>
+                    <li><i class="fas fa-check-circle"></i> 12,000+ Channels</li>
+                    <li><i class="fas fa-check-circle"></i> 4K Streaming</li>
+                    <li><i class="fas fa-check-circle"></i> 24/7 Support</li>
+                </ul>
+                <button class="btn-buy" onclick="openContactModal('MONTHLY - $13')">SUBSCRIBE NOW</button>
+            </div>
+
+            <div class="plan-card featured">
+                <div class="plan-badge">🔥 BEST VALUE</div>
+                <div class="plan-icon">⭐</div>
+                <h3 class="plan-name">6 MONTHS</h3>
+                <div class="plan-price"><span class="amount">$39</span> <span style="color:#94a3b8">/6 months</span></div>
+                <ul class="plan-features">
+                    <li><i class="fas fa-check-circle"></i> 180 Days Access</li>
+                    <li><i class="fas fa-check-circle"></i> 22,000+ Channels</li>
+                    <li><i class="fas fa-check-circle"></i> 4K + HDR</li>
+                    <li><i class="fas fa-check-circle"></i> Priority Support</li>
+                </ul>                <button class="btn-buy" onclick="openContactModal('6 MONTHS - $39')">SUBSCRIBE NOW</button>
+            </div>
+
+            <div class="plan-card">
+                <div class="plan-icon">👑</div>
+                <h3 class="plan-name">YEARLY</h3>
+                <div class="plan-price"><span class="amount">$69</span> <span style="color:#94a3b8">/year</span></div>
+                <ul class="plan-features">
+                    <li><i class="fas fa-check-circle"></i> 365 Days Access</li>
+                    <li><i class="fas fa-check-circle"></i> 32,000+ Channels</li>
+                    <li><i class="fas fa-check-circle"></i> 4K + Dolby Vision</li>
+                    <li><i class="fas fa-check-circle"></i> VIP 24/7 Support</li>
+                </ul>
+                <button class="btn-buy" onclick="openContactModal('YEARLY - $69')">SUBSCRIBE NOW</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="matches-section animate-on-scroll" id="matches">
+        <div class="section-header"><h2>LIVE AMERICAN SPORTS</h2></div>
+        <div class="matches-grid">
+            <div class="match-card">
+                <span class="live-badge">LIVE</span>
+                <div class="match-img" style="background-image:url('https://images.unsplash.com/photo-1566577739112-5180d4bf9390?auto=compress&cs=tinysrgb&w=800&h=500&fit=crop')"></div>
+                <div class="match-info">
+                    <div class="match-title">SUPER BOWL LX</div>
+                    <div class="match-year">🏈 NFL • 4K HDR</div>
+                </div>
+            </div>
+            <div class="match-card">
+                <span class="live-badge">LIVE</span>
+                <div class="match-img" style="background-image:url('https://images.unsplash.com/photo-1529768167801-9173d94c2a42?auto=compress&cs=tinysrgb&w=800&h=500&fit=crop')"></div>
+                <div class="match-info">
+                    <div class="match-title">WORLD SERIES 2026</div>
+                    <div class="match-year">⚾ MLB • 4K ULTRA HD</div>
+                </div>
+            </div>
+            <div class="match-card">
+                <span class="live-badge">LIVE</span>
+                <div class="match-img" style="background-image:url('https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?auto=compress&cs=tinysrgb&w=800&h=500&fit=crop')"></div>
+                <div class="match-info">
+                    <div class="match-title">UFC CHAMPIONSHIP</div>
+                    <div class="match-year">🥊 MMA • 4K HDR</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="carousel-section animate-on-scroll" id="movies-carousel">
+        <div class="section-header"><h2>HOLLYWOOD BLOCKBUSTERS</h2></div>        <div class="carousel-container">
+            <div class="carousel-track" id="carouselTrack">
+                <div class="carousel-slide">
+                    <div class="carousel-img" style="background-image:url('https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=compress&cs=tinysrgb&w=600&h=800&fit=crop')"></div>
+                    <div class="carousel-info"><div class="carousel-title">AVATAR: FIRE & ASH</div><div class="carousel-year">2026 • 4K HDR</div></div>
+                </div>
+                <div class="carousel-slide">
+                    <div class="carousel-img" style="background-image:url('https://images.unsplash.com/photo-1635805737707-575885ab0820?auto=compress&cs=tinysrgb&w=600&h=800&fit=crop')"></div>
+                    <div class="carousel-info"><div class="carousel-title">AVENGERS: SECRET WARS</div><div class="carousel-year">2026 • IMAX</div></div>
+                </div>
+                <div class="carousel-slide">
+                    <div class="carousel-img" style="background-image:url('https://images.unsplash.com/photo-1594909122845-11baa439b7bf?auto=compress&cs=tinysrgb&w=600&h=800&fit=crop')"></div>
+                    <div class="carousel-info"><div class="carousel-title">FAST & FURIOUS 11</div><div class="carousel-year">2026 • DOLBY</div></div>
+                </div>
+                <div class="carousel-slide">
+                    <div class="carousel-img" style="background-image:url('https://images.unsplash.com/photo-1608346128025-1896b97a6fa7?auto=compress&cs=tinysrgb&w=600&h=800&fit=crop')"></div>
+                    <div class="carousel-info"><div class="carousel-title">JURASSIC WORLD</div><div class="carousel-year">2026 • 4K</div></div>
+                </div>
+            </div>
+            <div class="carousel-btn carousel-btn-left" id="carouselLeft"><i class="fas fa-chevron-left"></i></div>
+            <div class="carousel-btn carousel-btn-right" id="carouselRight"><i class="fas fa-chevron-right"></i></div>
+        </div>
+    </section>
+
+    <section class="sports-highlights animate-on-scroll">
+        <div class="section-header"><h2>AMERICAN SPORTS ICONS</h2></div>
+        <div class="sports-grid">
+            <div class="sport-card">
+                <img src="https://images.unsplash.com/photo-1566577739112-5180d4bf9390?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="NFL" loading="lazy">
+                <div class="sport-label">🏈 NFL</div>
+            </div>
+            <div class="sport-card">
+                <img src="https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="Boxing" loading="lazy">
+                <div class="sport-label">🥊 BOXING</div>
+            </div>
+            <div class="sport-card">
+                <img src="https://images.unsplash.com/photo-1529768167801-9173d94c2a42?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="Baseball" loading="lazy">
+                <div class="sport-label">⚾ MLB</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="faq animate-on-scroll" id="faq">
+        <div class="section-header"><h2>FREQUENTLY ASKED QUESTIONS</h2></div>
+        <div class="faq-container">
+            <div class="faq-item"><div class="faq-question"><span>What is USA Service IPTV?</span><span class="faq-toggle">+</span></div><div class="faq-answer">USA Service is a premium global IPTV provider offering 45,000+ channels, 100,000+ VOD, including NFL, Premier League, and all major networks in stunning 4K quality.</div></div>
+            <div class="faq-item"><div class="faq-question"><span>How fast is activation?</span><span class="faq-toggle">+</span></div><div class="faq-answer">Your account is activated within 5-7 minutes after purchase. You'll receive login details via email and WhatsApp immediately.</div></div>
+            <div class="faq-item"><div class="faq-question"><span>What devices are supported?</span><span class="faq-toggle">+</span></div><div class="faq-answer">All devices: Smart TVs, Firestick, Apple TV, Android TV, iPhone, iPad, Windows, Mac, Android phones/tablets.</div></div>
+            <div class="faq-item"><div class="faq-question"><span>Can I watch worldwide?</span><span class="faq-toggle">+</span></div><div class="faq-answer">Absolutely! Stream from anywhere in the world with a stable internet connection. No VPN required.</div></div>
+        </div>    </section>
+
+    <section class="contact-section animate-on-scroll" id="contact">
+        <div class="section-header"><h2>CONTACT US</h2></div>
+        <div class="contact-icons">
+            <div class="contact-icon-btn wa" onclick="openWhatsApp()"><i class="fab fa-whatsapp"></i><span>WHATSAPP</span></div>
+            <div class="contact-icon-btn email" onclick="openEmailModal()"><i class="fas fa-envelope"></i><span>GMAIL</span></div>
+        </div>
+    </section>
+
+    <div class="modal" id="contactModal">
+        <div class="modal-content">
+            <div class="modal-header"><h3><i class="fas fa-envelope"></i> CONTACT US</h3><button class="close-modal" onclick="closeModal()">&times;</button></div>
+            <form class="contact-form-modal" id="contactForm" onsubmit="sendContactForm(event)">
+                <input type="text" id="fullName" placeholder="Full Name" required>
+                <input type="tel" id="phoneNumber" placeholder="Phone Number" required>
+                <input type="email" id="emailAddress" placeholder="Email Address" required>
+                <select id="packageSelect" required>
+                    <option value="" disabled selected>-- Select Package --</option>
+                    <option value="MONTHLY - $13">MONTHLY - $13</option>
+                    <option value="6 MONTHS - $39">6 MONTHS - $39</option>
+                    <option value="YEARLY - $69">YEARLY - $69</option>
+                </select>
+                <textarea id="messageText" placeholder="Your Message (Optional)" rows="3"></textarea>
+                <button type="submit" class="btn-submit-form">SEND MESSAGE</button>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-col"><h4>🇺🇸 USA SERVICE</h4><p>Premium global IPTV service with live sports, 4K movies, and 24/7 support.</p></div>
+            <div class="footer-col"><h4>QUICK LINKS</h4><a href="#home">Home</a><a href="#plans">Plans</a><a href="#matches">Live Sports</a><a href="#movies-carousel">Movies</a><a href="#faq">FAQ</a></div>
+            <div class="footer-col"><h4>SUPPORT</h4>
+                <a href="https://wa.me/212617645035" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp: +212617645035</a>
+                <a href="mailto:Hakimbouzit1993@gmail.com"><i class="fas fa-envelope"></i> Hakimbouzit1993@gmail.com</a>
+            </div>
+        </div>
+        <div class="footer-bottom">© 2026 USA SERVICE • PREMIUM GLOBAL IPTV • SERVING 50+ COUNTRIES 🇺🇸</div>
+    </footer>
+
+    <script>
+        window.addEventListener('load', function() { setTimeout(function() { document.getElementById('loading').classList.add('hidden'); }, 600); });
+        
+        function showThankYouToast() {
+            const toast = document.createElement('div');
+            toast.className = 'toast-message';
+            toast.innerHTML = '<i class="fas fa-check-circle"></i> Message sent! We will contact you within 5 minutes.';
+            document.body.appendChild(toast);
+            setTimeout(() => { toast.style.opacity = '0'; setTimeout(() => toast.remove(), 500); }, 4000);        }
+
+        function openWhatsApp() { window.open('https://wa.me/212617645035', '_blank'); showThankYouToast(); }
+
+        function openContactModal(pkg = null) { 
+            const modal = document.getElementById('contactModal'); 
+            const packageSelect = document.getElementById('packageSelect'); 
+            if (packageSelect && pkg) packageSelect.value = pkg; 
+            modal.classList.add('active'); 
+        }
+        function openEmailModal() { openContactModal(null); }
+        function closeModal() { document.getElementById('contactModal').classList.remove('active'); document.getElementById('contactForm').reset(); }
+        
+        function sendContactForm(event) {
+            event.preventDefault();
+            const name = document.getElementById('fullName').value; 
+            const phone = document.getElementById('phoneNumber').value; 
+            const email = document.getElementById('emailAddress').value; 
+            const packageVal = document.getElementById('packageSelect').value; 
+            const message = document.getElementById('messageText').value;
+            
+            let waMessage = `Hello! I want to subscribe to ${packageVal} package\n\n■ Name: ${name}\n■ Phone: ${phone}\n■ Email: ${email}`; 
+            if (message) waMessage += `\n■ Message: ${message}`; 
+            
+            window.open(`https://wa.me/212617645035?text=${encodeURIComponent(waMessage)}`, '_blank');
+            showThankYouToast();
+            closeModal();
+        }
+        
+        document.querySelectorAll('.faq-question').forEach(q => { 
+            q.addEventListener('click', function() { 
+                const item = this.parentElement; 
+                const wasActive = item.classList.contains('active'); 
+                document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active')); 
+                if (!wasActive) item.classList.add('active'); 
+            }); 
+        });
+        
+        window.addEventListener('scroll', function() { document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50); });
+        window.addEventListener('click', function(e) { if (e.target === document.getElementById('contactModal')) closeModal(); });
+        
+        const observer = new IntersectionObserver((entries) => { 
+            entries.forEach(entry => { 
+                if (entry.isIntersecting) {
+                    if(entry.target.classList.contains('stats-grid') || entry.target.classList.contains('plans-grid') || entry.target.classList.contains('matches-grid') || entry.target.classList.contains('sports-grid')) {
+                        const children = entry.target.children;
+                        Array.from(children).forEach((child, i) => {
+                            child.style.opacity = '0'; child.style.transform = 'translateY(30px)';
+                            child.style.transition = `all 0.6s cubic-bezier(0.4, 0, 0.2, 1) ${i * 0.1}s`;
+                            setTimeout(() => { child.style.opacity = '1'; child.style.transform = 'translateY(0)'; }, 50);                        });
+                    } else { entry.target.classList.add('visible'); }
+                    observer.unobserve(entry.target); 
+                } 
+            }); 
+        }, { threshold: 0.15 });
+        document.querySelectorAll('.animate-on-scroll, .stats-grid, .plans-grid, .matches-grid, .sports-grid').forEach(el => observer.observe(el));
+        
+        function animateCounter(el, target, prefix) { 
+            let start = null, duration = 2000; 
+            function step(ts) { 
+                if (!start) start = ts; 
+                let progress = Math.min((ts - start) / duration, 1); 
+                let current = Math.floor(progress * target); 
+                el.textContent = prefix + (current >= 1000 ? (current / 1000).toFixed(current >= 10000 ? 0 : 1) + 'K' : current.toLocaleString()); 
+                if (progress < 1) requestAnimationFrame(step); 
+                else el.textContent = prefix + (target >= 1000 ? (target / 1000).toFixed(target >= 10000 ? 0 : 1) + 'K' : target.toLocaleString()); 
+            } 
+            requestAnimationFrame(step); 
+        }
+        
+        const statsObserver = new IntersectionObserver((entries) => { 
+            entries.forEach(entry => { 
+                if (entry.isIntersecting) { 
+                    const counters = entry.target.querySelectorAll('.stat-number'); 
+                    counters.forEach((c, i) => { 
+                        const target = parseInt(c.dataset.target); 
+                        const prefix = c.dataset.prefix || ''; 
+                        setTimeout(() => animateCounter(c, target, prefix), i * 200); 
+                    }); 
+                    statsObserver.unobserve(entry.target); 
+                } 
+            }); 
+        }, { threshold: 0.3 });
+        const statsSection = document.querySelector('.stats'); if (statsSection) statsObserver.observe(statsSection);
+        
+        const track = document.getElementById('carouselTrack'); 
+        const leftBtn = document.getElementById('carouselLeft'); 
+        const rightBtn = document.getElementById('carouselRight'); 
+        let currentIndex = 0; let slidesPerView = 3;
+        
+        function updateSlidesPerView() { 
+            if (window.innerWidth < 768) slidesPerView = 1; 
+            else if (window.innerWidth < 1024) slidesPerView = 2; 
+            else slidesPerView = 3; 
+            updateCarousel(); 
+        }
+        function updateCarousel() { 
+            if (!track || !track.children[0]) return; 
+            const totalSlides = track.children.length;             const maxIndex = Math.max(0, totalSlides - slidesPerView); 
+            if (currentIndex > maxIndex) currentIndex = maxIndex; 
+            const slideWidth = track.children[0].offsetWidth + 24; 
+            track.style.transform = `translateX(-${currentIndex * slideWidth}px)`; 
+        }
+        function nextSlide() { if (currentIndex < Math.max(0, track.children.length - slidesPerView)) currentIndex++; updateCarousel(); }
+        function prevSlide() { if (currentIndex > 0) currentIndex--; updateCarousel(); }
+        
+        if (leftBtn && rightBtn && track) { 
+            leftBtn.addEventListener('click', prevSlide); rightBtn.addEventListener('click', nextSlide); 
+            window.addEventListener('resize', updateSlidesPerView); setTimeout(updateSlidesPerView, 100); 
+        }
+        
+        function toggleMobileMenu() { document.getElementById('mobileMenu').classList.toggle('active'); }
+        function closeMobileMenu() { document.getElementById('mobileMenu').classList.remove('active'); }
+    </script>
+</body>
+</html>
